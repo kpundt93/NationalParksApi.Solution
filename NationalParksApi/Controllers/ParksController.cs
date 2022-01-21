@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NationalParksApi.Models;
@@ -46,6 +49,41 @@ namespace NationalParksApi.Controllers
       await _db.SaveChangesAsync();
 
       return CreatedAtAction("Post", new { id = park.ParkId }, park);
+    }
+
+    // PUT api/parks/1
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Park park)
+    {
+      if (id != park.ParkId)
+      {
+        return BadRequest();
+      }
+
+      _db.Entry(park).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!ParkExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    private bool ParkExists(int id)
+    {
+      return _db.Parks.Any(e => e.ParkId == id);
     }
   }
 }
