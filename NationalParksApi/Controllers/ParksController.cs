@@ -22,7 +22,7 @@ namespace NationalParksApi.Controllers
 
     // GET api/parks
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Park>>> Get(string name)
+    public async Task<ActionResult<IEnumerable<Park>>> Get(string name, string state)
     {
       var query = _db.Parks.AsQueryable();
 
@@ -31,6 +31,13 @@ namespace NationalParksApi.Controllers
       {
         query = query.Where(entry => entry.Name == name);
       }
+
+      // filter by state
+      if (state != null)
+      {
+        query = query.Where(entry => entry.State == state);
+      }
+      
       return await query.ToListAsync();
     }
 
