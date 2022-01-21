@@ -24,6 +24,20 @@ namespace NationalParksApi.Controllers
       return await _db.Parks.ToListAsync();
     }
 
+    // GET api/parks/1
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Park>> GetPark(int id)
+    {
+      var park = await _db.Parks.FindAsync(id);
+
+      if (park == null)
+      {
+        return NotFound();
+      }
+
+      return park;
+    }
+
     // POST api/parks
     [HttpPost]
     public async Task<ActionResult<Park>> Post(Park park)
