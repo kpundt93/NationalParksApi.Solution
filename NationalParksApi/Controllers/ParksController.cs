@@ -38,16 +38,16 @@ namespace NationalParksApi.Controllers
         query = query.Where(entry => entry.State == state);
       }
 
-      // // filter by visited status = true
-      // if (visited != true)
+      // // filter by visited status = true 
+      // if (visited == false)
       // {
       //   query = query.Where(entry => entry.Visited == visited);
       // }
-      // if (visited != false)
+      // else if (visited)
       // {
       //   query = query.Where(entry => entry.Visited == visited);
       // }
-      
+
 
       // search description for keyword
       if (description != null)
