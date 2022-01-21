@@ -38,6 +38,7 @@ namespace NationalParksApi.Controllers
         query = query.Where(entry => entry.State == state);
       }
       
+
       return await query.ToListAsync();
     }
 
