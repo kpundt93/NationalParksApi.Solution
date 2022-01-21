@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System;
 using NationalParksApi.Models;
 
 namespace NationalParksApi
@@ -24,6 +26,8 @@ namespace NationalParksApi
         opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
         
       services.AddControllers();
+
+      services.AddSwaggerGen();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +37,14 @@ namespace NationalParksApi
       {
         app.UseDeveloperExceptionPage();
       }
+
+      app.UseSwagger();
+
+      app.UseSwaggerUI(c => 
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "National Parks API v1");
+        c.RoutePrefix = string.Empty;
+      });
 
       // app.UseHttpsRedirection();
 
