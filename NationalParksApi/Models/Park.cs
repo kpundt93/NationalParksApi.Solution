@@ -17,7 +17,8 @@ namespace NationalParksApi.Models
     public string Description { get; set; }
 
     [Required]
-    public bool Visited { get; set; }
+    [RegularExpression(@"^(?:Yes|No)$")]
+    public string Visited { get; set; }
 
   }
 }
