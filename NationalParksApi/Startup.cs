@@ -27,7 +27,23 @@ namespace NationalParksApi
         
       services.AddControllers();
 
-      services.AddSwaggerGen();
+      services.AddSwaggerGen(c => {
+        c.SwaggerDoc("v1", new OpenApiInfo{
+          Version = "v1", 
+          Title = "National Parks API",
+          Description = "An API with basic details about US National Parks",
+          Contact = new OpenApiContact
+          {
+            Name = "Katie Pundt",
+            Url = new Uri("https://github.com/kpundt93")
+          },
+          License = new OpenApiLicense
+          {
+            Name = "Use under MIT License",
+            Url = new Uri("https://opensource.org/licenses/MIT")
+          }
+        });
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
