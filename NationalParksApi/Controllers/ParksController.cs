@@ -23,5 +23,15 @@ namespace NationalParksApi.Controllers
     {
       return await _db.Parks.ToListAsync();
     }
+
+    // POST api/parks
+    [HttpPost]
+    public async Task<ActionResult<Park>> Post(Park park)
+    {
+      _db.Parks.Add(park);
+      await _db.SaveChangesAsync();
+
+      return CreatedAtAction("Post", new { id = park.ParkId }, park);
+    }
   }
 }
