@@ -22,7 +22,7 @@ namespace NationalParksApi.Controllers
 
     // GET api/parks
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Park>>> Get(string name, string state)
+    public async Task<ActionResult<IEnumerable<Park>>> Get(string name, string state, bool visited)
     {
       var query = _db.Parks.AsQueryable();
 
@@ -37,7 +37,17 @@ namespace NationalParksApi.Controllers
       {
         query = query.Where(entry => entry.State == state);
       }
-      
+
+      // filter by visited status
+      if (visited != true)
+      {
+        query = query.Where(entry => entry.Visited == visited);
+      }
+      else 
+      {
+        query = query.Where(entry => entry.Visited == visited);
+      }
+
 
       return await query.ToListAsync();
     }
