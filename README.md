@@ -18,6 +18,8 @@
 ## Description
 _An API to look up basic information about US National parks. Users can filter results by state, park name, keywords, and if they've visited that park._
 
+The corresponding MVC application can be found here: https://github.com/kpundt93/NationalParksClient.Solution
+
 ## Setup/Installation Instructions
 * Download, install, and configure MySQL
 * Open the terminal on your desktop
